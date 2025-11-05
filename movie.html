@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+ body { margin:0; font-family: Arial, sans-serif; background:#0f1115; color:#fff; }
+.header { padding:20px; text-align:center; background:#11131a; }
+.search { margin-top:10px; }
+input { padding:10px; width:300px; border-radius:6px; border: none; }
+button { padding:10px 14px; border-radius:6px; cursor:pointer; }
+.movie-container { display:flex; flex-wrap:wrap; gap:18px; justify-content:center; padding:24px; }
+
+    </style>
+<body>
+
+    <header class="header">
+  <h1 class="title">🎥 Movie Finder</h1>
+  <div class="search">
+    <input id="searchInput" type="text" placeholder="Search movies (e.g., Inception)" />
+    <button id="searchBtn">Search</button>
+  </div>
+</header>
+
+<div>
+  <section id="movieContainer" class="movie-container">
+    <!-- movie cards appear here -->
+  </section>
+</div>
+
+
+
+
+<script>
+
+  let API_KEY = "6044b287";
+
+const searchInput = document.getElementById("searchInput");
+const searchBtn = document.getElementById("searchBtn");
+
+// 🔍 Search button click
+searchBtn.addEventListener("click",()=>{
+  const query=searchInput.value.trim()
+  console.log(query);
+  if(!query)
+  return alert("type movie name")
+  fetchMovies(query)
+
+  
+})
+
+searchInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    const query = searchInput.value.trim();
+    if (!query) return alert("Type movie name");
+    fetchMovies(query);
+  }
+});
+
+
+//fetch movies 
+
+
+async function fetchMovies(query){
+  const movieContainer=document.getElementById("movieContainer")
+  movieContainer.innerHTML=`<p>loading....</p>`
+  try{
+    const result=await fetch(
+      `https://www.omdbapi.com/?apikey=${API_KEY}&s=${encodeURIComponent(query)}`
+
+    )
+    const data=await result.json()
+  
+  if (data.Response==="True"){
+    displayMovies(data.Search)
+
+  }else{
+    movieContainer.innerHTML=`<p>No movie found.........</p>`;
+
+  }
+ } catch(err){
+     movieContainer.innerHTML=`<p>Something went wrong. Try again</p>`
+     console.log(err);
+     
+  }
+
+}
+//display movie card
+function displayMovies(movies){
+  const container=document.getElementById("movieContainer")
+  container.innerHTML="";
+  
+  movies.forEach((m)=> {
+    const card=document.createElement("article")
+    card.className="movie-card"
+
+    card.innerHTML=`
+    <img src="${m.Poster !== 'N/A' ? m.Poster : 'https://via.placeholder.com/200x300?text=No+Image'}" alt="${m.Title}">
+
+      <div class="movie-info">
+        <h3>${m.Title}</h3>
+        <p>${m.Year}</p>
+        <button class="fav-btn" data-id="${m.imdbID}">favourite</button>
+        <button class="details-btn" data-id="${m.imdbID}">Details</button>
+        </div>`;
+        container.appendChild(card)
+
+  })
+
+
+}
+// add to favourite
+document.getElementById("movieContainer").addEventListener("click",(e)=>{
+  if (e.target.classList.contains("fav-btn")){
+    const id=e.target.dataset.id;
+    addToFavorites(id)
+  }
+  if (e.target.classList.contains("details-btn")){
+    const id=e.target.dataset.id;
+    fetchMovieDetails(id)
+  }
+})
+
+//localstorage.
+
+function addToFavorites(imdbID){
+  const favourites=JSON.parse(localStorage.getItem("favorites") || "[]");
+  if (favourites.includes(imdbID)){
+    alert("already in favourites")
+    return
+  }
+  favourites.push(imdbID);
+  localStorage.setItem("favorites",JSON.stringify(favourites))
+  alert("added to fav")
+}
+
+//fetch movie details
+
+async function fetchMovieDetails(imdbID) {
+  try {
+    const res = await fetch(
+      `https://www.omdbapi.com/?apikey=${API_KEY}&i=${imdbID}&plot=full`
+    );
+    const data = await res.json();
+    if (data.Response === "True") {
+      showDetailsModal(data);
+    } else {
+      alert(data.Error);
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Failed to fetch details");
+  }
+}
+
+// 🪟 Show modal (you can design your own popup)
+function showDetailsModal(movie) {
+  alert(`Title: ${movie.Title}\nYear: ${movie.Year}\nPlot: ${movie.Plot}`)
+}
+
+
+
+</script>
+    
+</body>
+</html>

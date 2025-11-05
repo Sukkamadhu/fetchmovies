@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News app</title>
+    <style>
+        .nav_bar {
+            background-color: black;
+            display: flex;
+            justify-content: space-around;
+            align-items: center
+        }
+
+        .heading {
+            font-size: 40px;
+            font-family: sans-serif;
+            color: white;
+        }
+
+        .cart {
+            width: 300px;
+            height: 400px;
+            background-color: purple;
+            margin: 10px;
+
+        }
+
+        #news_container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 5px;
+
+        }
+        #nodata{
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="nav_bar">
+        <h1 class="heading">News App</h1>
+        <input type="search" id="search_input" placeholder="search_input">
+    </nav>
+    <div id="news_container">
+        <div>
+            <h1 id="nodata">No data found</h1>
+        </div>
+
+    </div>
+
+    <div>
+        <h2 id="loading">Loading.......</h2>
+    </div>
+
+
+
+
+
+    <!-- js code -->
+    <script>
+        let API_KEY = "639d54a0df6140d0b35a1aafab59b53e"
+        let url = "https://newsapi.org/v2/everything"
+        let search_input = document.getElementById("search_input")
+        let news_container = document.getElementById("news_container")
+        let loading=document.getElementById("loading")
+        
+        let nodata=document.getElementById("nodata")
+       
+
+
+
+        let displayNewsData = (data) => {  //display func created 
+            console.log(data);
+
+            let div = document.createElement("div")
+            div.classList.add("cart")
+
+            let image = document.createElement("img")
+            image.src = data.urlToImage
+            image.style.width = "100%"
+            image.style.height = "50%"
+            div.appendChild(image)
+
+            let para = document.createElement("p")
+            para.innerText = data.title
+            para.style.fontSize = "10px"
+            div.append(para)
+
+            let author = document.createElement("p")
+            author.innerText = data.author
+            div.append(author)
+
+            let content = document.createElement("p")
+            content.innerText = data.content
+            content.style.fontSize = "12px"
+            div.append(content)
+
+
+            let btn=document.createElement("button")
+            btn.innerText="read_more"
+            btn.style.border="1px solid grey"
+            btn.style.padding="10px"
+            btn.style.margin="10px"
+            btn.style.color="red"
+            btn.style.border="5px"
+            btn.addEventListener("click", () => {
+            window.open(data.url, "_blank"); // opens article in a new tab
+           });
+           div.append(btn);
+
+
+            news_container.appendChild(div)
+
+        }
+
+        let AllNewsData = (data) => {  //func is created and parameter as data
+            if(data.length===0){
+                console.log(news_container);
+                news_container.innerHTML="No Data Found"
+                
+            
+                
+            }else{
+
+                 for (let item of data) {  //for iterated using data
+                displayNewsData(item)  //func called
+                search_input.value="";
+
+
+            }
+            }
+            for (let item of data) {  //for iterated using data
+                displayNewsData(item)  //func called
+                search_input.value="";
+
+
+            }
+
+        }
+
+
+        let fetchData = async (search) => {
+            try {
+                loading.style.display="block"
+                let data = await fetch(`${url}?q=${search}&apiKey=${API_KEY}`)//we use backticks to include variable url and ?q=type of request and apikey=${apikey}
+                let jsonData = await data.json()  //data is converted into json data and assigned to jsonData
+                loading.style.display="none"
+                AllNewsData(jsonData.articles)  //function called and passed jsondata as parameter
+
+            } catch (err) {      //error os handled in catch or reject method
+                console.log(err);
+
+
+            }
+        }
+
+        window.onload=()=>{    //when window opens
+            fetchData("cienma") //fetch  data  and shows the cinemaa as defualt data
+        }
+
+
+
+        search_input.addEventListener("keydown", (event) => {
+            if (event.key == "Enter") {   //checks entered key is equals to event 
+                news_container.innerHTML = "";
+                fetchData(search_input.value);   //function called and given input as input search and it searches 
+
+            }
+
+
+        })
+
+
+
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>

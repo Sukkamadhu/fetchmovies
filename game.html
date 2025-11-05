@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="random"></p>
+    <p id="result"></p>
+    
+    <script>
+//we need a random number
+// take over input
+// 3 live chances
+//you win or lose
+
+
+let random_number=Math.random()*10      //gives random num0.1 to 0.9
+random_number=Math.floor(random_number)
+console.log(random_number);
+
+
+let turns=3
+let chances=3
+
+let random_ele=document.getElementById("random")
+random.innerText=random_number
+
+
+let result_ele=document.getElementById("result")
+
+for(let i=0;1<turns;i++){
+    let user_input=prompt("enter num (0-9):")
+    if (user_input==random_number){
+        console.log("congrats you won");
+     
+        result_ele.style.color="green"
+        document.createElement("marquee").innerText="congratulations!!
+        document.body.append(mark)
+        break;
+        
+    }
+    chances--
+
+}
+if (chances==0){
+    console.log("you lose");
+    console.log(`the crt was ${random_number}`);
+    result_ele.innerText="sorry you loose"
+    result_ele.style.color="red"
+
+    
+    
+}
+
+
+
+
+</script>
+    
+</body>
+</html>

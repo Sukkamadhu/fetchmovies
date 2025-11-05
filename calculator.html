@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            background-color: #222;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+            font-family: sans-serif;
+        }
+
+        .main_div {
+            width: 320px;
+            background-color: black;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 15px rgba(255,255,255,0.2);
+            text-align: center;
+        }
+
+        #show {
+            width: 100%;
+            height: 60px;
+            background: #333;
+            border-radius: 10px;
+            color: white;
+            font-size: 32px;
+            text-align: right;
+            padding: 10px;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+            overflow-x: auto;
+        }
+
+        .button {
+            border: none;
+            padding: 15px;
+            margin: 8px;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            width: 60px;
+            background-color: #444;
+            color: white;
+            transition: 0.2s;
+        }
+
+        .button:hover {
+            background-color: #666;
+        }
+
+        .eq_btn {
+            width: 135px;
+            background-color: orange;
+        }
+
+        .clear_btn {
+            background-color: red;
+        }
+
+        h2 {
+            font-style: italic;
+            font-size: 14px;
+            color: gray;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="main_div">
+        <h1>Calculator</h1>
+        <div id="show">0</div>
+
+        <div>
+            <button class="button clear_btn">C</button>
+            <button class="button">9</button>
+            <button class="button">8</button>
+            <button class="button">7</button>
+        </div>
+        <div>
+            <button class="button">-</button>
+            <button class="button">6</button>
+            <button class="button">5</button>
+            <button class="button">4</button>
+        </div>
+        <div>
+            <button class="button">/</button>
+            <button class="button">3</button>
+            <button class="button">2</button>
+            <button class="button">1</button>
+        </div>
+        <div>
+            <button class="button">+</button>
+            <button class="button">*</button>
+            <button class="button">0</button>
+            <button class="button">.</button>
+        </div>
+        <div>
+            <button class="button eq_btn">=</button>
+        </div>
+
+        <h2>designed by madhu</h2>
+    </div>
+
+    <script>
+        const buttons = document.querySelectorAll(".button");
+        const display = document.getElementById("show");
+        let currentInput = "";  //to store user input before kept as 0
+
+        buttons.forEach(button => {  //loops throught all buttons
+            button.addEventListener("click", () => {  //runs code when btn clicked
+                const value = button.textContent;   
+
+                if (value === "C") {     //clear the display
+                    currentInput = "";
+                    display.textContent = "0";
+                } 
+                else if (value === "=") {   //calculate the result
+                    try {
+                        currentInput = eval(currentInput);  //converts math string to a real result
+                        display.textContent = currentInput;
+                    } catch {
+                        display.textContent = "Error";
+                        currentInput = "";
+                    }
+                } 
+                else {
+                    currentInput += value;
+                    display.textContent = currentInput;
+                }
+            });
+        });
+
+       
+    </script>
+</body>
+</html>

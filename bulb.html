@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <img src="./bulbon.jpg" height="200px" width="200px">
+    <button Onclick="handleChange()">change</button>
+<script > 
+    function handleChange(){
+        let state=document.getElementsByTagName("img")[0]
+        let src_val=state.getAttribute("src")
+        console.log(state,src_val)
+
+        let light_switch=document.getElementsByTagName("button")[0]
+        if(src_val=="./bulbon.jpg"){
+            state.setAttribute("src","./bulboff.jpg")
+            light_switch.innerText="TurnOn"
+            document.getElementsByClassName("body")[0].style.backgroundColors="black"
+        
+        }else{
+            state.setAttribute("src","./bulbon.jpg")
+            light_switch.innerText="Turn Off"
+            document.getElementsByTagName("body")[0].style.backgroundColor="blanchedalmond"
+        }
+    }
+</script>
+</body>
+</html>

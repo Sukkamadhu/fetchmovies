@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <div onclick="handleDiv()">
+        <button onclick="handleClick()">Click</button>
+    </div> -->
+    <div id="grandparent">
+        <div id="parent">
+            <div id="child"></div>
+        </div>
+    </div>
+
+    <script>
+        // const handleDiv=()=>{
+        //     console.log("div clicked");
+            
+        // }
+        // function handleClick(){
+        //     console.log("button clicked");
+            
+        // }
+        let gp=document.getElementById("grandparent")
+        gp.addEventListener("click",()=>{
+            console.log("grand parent");
+            
+        })
+        gp.style.height="200px"
+        gp.style.width="200px"
+        gp.style.border="2px solid"
+        let parent=document.getElementById("parent")
+        parent.addEventListener("click",()=>{
+            console.log("parent");
+            
+        })
+        parent.style.height="150px"
+        parent.style.weight="150px"
+        parent.style.border="2px solid red"
+
+            let child=document.getElementById("child")
+            child.addEventListener("click",(event)=>{
+            console.log("child");
+            event.stopPropagation()
+            
+        },false)
+        child.style.height="100px"
+        child.style.weight="100px"
+        child.style.border="3px solid yellow"
+
+    </script>
+</body>
+</html>

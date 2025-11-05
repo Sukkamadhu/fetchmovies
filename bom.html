@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>  
+
+<button onclick=handleclose()>close window</button>
+    <script>
+        function handleclose(){
+            window.close()
+        }
+
+
+        // to get location 
+        // navigator.geolocation.getCurrentPosition(function(pos){
+        //     console.log(pos.coords.latitude,pos.coords.longitude,pos.coords.accuracy);
+            
+        // })
+
+
+        // screen type 
+        // console.log(screen.orientation);
+        
+
+        //  location
+        // console.log(location);
+        // console.log(location.href)
+        // location.href="http://www.instagram.com"
+        // location.href="http://127.0.0.1:5500/index.html"
+        
+        //history
+        // history.go(-2) goes back to two pages
+        //we have forward backword methods
+
+
+        // browser storage
+        // sessionStorage,localStorage
+
+       window.sessionStorage() //if  tab is open we can use
+       
+       window.localStorage()  //even after tab is closed data remains
+//        // ❌ Don't use parentheses after sessionStorage or localStorage
+// // ✅ They are objects, not functions
+// // ❌ window.sessionStorage()
+// // ✅ window.sessionStorage
+
+// // ✅ Example:
+// window.sessionStorage.setItem("my_name", "madhu");
+// window.sessionStorage.setItem("is_logged_in", "True");
+
+// // ✅ Retrieve values
+// let user_logged = window.sessionStorage.getItem("is_logged_in");
+// console.log(user_logged); // Output: True
+
+// to store permanently but it need only 
+
+// window.localStorage.setItem("name","madhu")
+window.sessionStorage.setItem("language",'["tel","hin","eng"]')
+let user_languages=window.sessionStorage.getItem("language")
+console.log(user_languages[2]);
+
+
+</script>
+    
+</body>
+</html>

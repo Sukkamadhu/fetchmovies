@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+     <div id="std_list"> 
+
+
+    </div>
+
+    <form>
+        <input type="text" name="name" id="name" placeholder="enter name">
+        <input type="text" name="email" id="email" placeholder="enter email">
+        <input type="num" name="mobile" id="phone" placeholder="moblie">
+        <button onclick=handleSubmit(event)>submit</button>
+    </form>
+    <script>
+        function handleSubmit(event){
+            event.preventDefault();
+
+            let s_name=document.getElementById("name")
+            let s_email=document.getElementById("email")
+            let s_mob=document.getElementById("phone")
+
+            if(s_name.value && s_email.value && s_mob.value){
+
+            
+
+            
+
+            let record=document.createElement("div")
+            record.style.border="2px solid black" 
+            record.style.margin="10px"
+            record.style.padding="10px" 
+
+            let p_name=document.createElement("p")
+            let p_email=document.createElement("p")
+            let p_mob=document.createElement("p")
+
+        
+            p_name.innerText=s_name.value
+            p_email.innerText=s_email.value
+            p_mob.innerText=s_mob.value
+
+            record.append(p_name,p_email,p_mob)
+            
+
+            let main=document.getElementById("std_list")
+            main.append(record)
+            }
+            else{
+                alert("please fill all fields")
+            }
+        }
+    
+    </script>
+</body>
+</html>

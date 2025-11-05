@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+    
+//   fetch("https://fakestoreapi.com/products/3")
+//     .then(response => response.json())
+//     .then(data => console.log(data))
+//     .catch(err => console.log(err)); 
+
+
+// geting product with id from based on user input
+
+// let id=prompt("enter a product")
+// fetch(`https://fakestoreapi.com/products/${id}`)
+//    .then(response=>response.json())
+//    .then(data=>console.log(data))
+//    .catch(err=>console.log(err))
+
+
+// storying the data into  varaible with id by setting the settimeout
+
+let id=prompt("enter a product")
+let product
+console.log("before api");
+
+fetch(`https://fakestoreapi.com/products/${id}`)
+   .then(response=>response.json())
+   .then(xyz=>product=xyz)
+  setTimeout(()=>{
+    console.log(product,"after");
+    
+  },2000)//delaying the time
+
+
+
+
+   
+
+
+
+
+
+
+        
+    </script>
+    
+</body>
+</html>

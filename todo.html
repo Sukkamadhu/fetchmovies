@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=h1, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>to-do list</h1>
+    <buttun onclick="handleInput()">Add Too</buttun>
+    <ul id="li"></ul>
+    <script>
+        function handleInput(){
+            let list=document.getElementById("li")
+            let todo_task=prompt("enter the task: ");
+            todo_task = todo_task.trim();
+            if (todo_task!==""){
+                let todo_item=document.createElement("li");
+                todo_item.innerText=todo_task;
+                
+                let completed_btn=document.createElement("button");
+                completed_btn.innerText="completed";
+                completed_btn.addEventListener("click",()=>{
+                    handleCompleted(todo_item-item);
+                });
+                list.append(todo_item,completed_btn);
+
+            }
+        }
+        function handleCompleted(params){
+            params.style.textDecoration="line-through";
+            params.style.color="red"
+        }
+    </script>
+</body>
+</html>
